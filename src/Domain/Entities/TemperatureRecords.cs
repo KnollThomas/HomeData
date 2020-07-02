@@ -10,5 +10,7 @@ namespace Domain.Entities
         public int Id { get; set; }
         public double Value { get; set; }
 
+        public int Category { get; set; } // TODo Change to enum or value object class
+
     }
 }
