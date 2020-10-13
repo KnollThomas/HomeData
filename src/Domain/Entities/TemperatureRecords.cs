@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Domain.Entities
         public int Id { get; set; }
         public double Value { get; set; }
 
-        public int Category { get; set; } // TODo Change to enum or value object class
+        public Category Category { get; set; } // TODo Change to enum or value object class
 
     }
 }
