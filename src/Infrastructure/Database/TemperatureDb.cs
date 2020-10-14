@@ -4,26 +4,33 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Reflection;
 using System.Text;
 
 namespace Infrastructure.Database
 {
     public class TemperatureDb : DbContext, IApplicationDbContext
     {
-        public DbSet<TemperatureRecords> Temperatures { get; set; }
-
+        public DbSet<TemperatureRecord> Temperatures { get; set; }
 
         public TemperatureDb()
-            :base()
         {
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public TemperatureDb(DbContextOptions<TemperatureDb> options)
+            :base(options)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings[nameof(TemperatureDb)].ConnectionString;
 
-            optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.Entity<TemperatureRecord>();
+
+            base.OnModelCreating(modelBuilder);
         }
 
 

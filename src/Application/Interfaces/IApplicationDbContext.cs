@@ -10,7 +10,7 @@ namespace Application.Interfaces
 {
     public interface IApplicationDbContext
     {
-        DbSet<TemperatureRecords> Temperatures { get; set; }
+        DbSet<TemperatureRecord> Temperatures { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 

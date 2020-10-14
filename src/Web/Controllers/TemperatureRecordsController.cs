@@ -20,11 +20,9 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<int>>> Create(List<TemperatureRecords> temperatures)
+        public async Task<ActionResult<List<int>>> Create(List<TemperatureRecord> temperatures)
         {
             return await Mediator.Send(new CreateTemperatureItemsCommand());
-
-
         }
 
 

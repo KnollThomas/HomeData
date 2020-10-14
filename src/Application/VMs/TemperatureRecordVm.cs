@@ -6,7 +6,7 @@ namespace Application.VMs
 {
     public class TemperatureRecordVm
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public double Value { get; set; }
         public int Category { get; set; }
     }

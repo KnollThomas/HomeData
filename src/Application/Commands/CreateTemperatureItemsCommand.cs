@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,15 @@ namespace Application.Commands
 
     public class CreateTemperatureItemsCommand : IRequest<List<int>>
     {
-        public List<TemperatureRecords> Temperatures { get; set; }
+        public List<TemperatureRecordDto> Temperatures { get; set; }
     }
+
+    public class TemperatureRecordDto
+    {        
+        public double Value { get; set; }
+        public Category Category { get; set; }
+    }
+
 
     public class CreateTemperatureItemsCommandHandler : IRequestHandler<CreateTemperatureItemsCommand, List<int>>
     {
@@ -27,14 +35,24 @@ namespace Application.Commands
 
         public async Task<List<int>> Handle(CreateTemperatureItemsCommand request, CancellationToken cancellationToken)
         {
-            foreach (var entity in request.Temperatures)
+            var ret = new List<TemperatureRecord>();
+
+            foreach (var requestItem in request.Temperatures)
             {
+                var entity = new TemperatureRecord()
+                {
+                    Id = 0,
+                    Value = requestItem.Value,
+                    Category = requestItem.Category,
+                };
+
                 _context.Temperatures.Add(entity);
+                ret.Add(entity);
             }
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            return request.Temperatures.Select(x => x.Id).ToList();
+            return ret.Select(x => x.Id).ToList() ;
         }
     }
 

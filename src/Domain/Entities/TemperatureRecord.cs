@@ -6,12 +6,17 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class TemperatureRecords : AuditableEntity
+    public class TemperatureRecord //: AuditableEntity
     {
+        public TemperatureRecord()
+        {
+
+        }
+
         public int Id { get; set; }
         public double Value { get; set; }
 
-        public Category Category { get; set; } // TODo Change to enum or value object class
+        public Category Category { get; set; } 
 
     }
 }
