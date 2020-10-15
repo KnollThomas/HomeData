@@ -1,4 +1,5 @@
 ﻿using MediatR.Pipeline;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,9 +10,19 @@ namespace Application.Behaviours
 {
     public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
     {
-        public Task Process(TRequest request, CancellationToken cancellationToken)
+        private readonly ILogger _logger;
+
+        public LoggingBehaviour(ILogger<TRequest> logger)
         {
-            throw new NotImplementedException();
+            _logger = logger;
+        }
+
+        public async Task Process(TRequest request, CancellationToken cancellationToken)
+        {
+            var requestName = typeof(TRequest).Name;
+
+            _logger.LogInformation("Temperture Request: {Name} {@Request}",
+                requestName,  request);
         }
     }
 }
